@@ -1,17 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "../src/components/App";
+import Register from "../src/components/Register";
+import Login from "../src/components/Login";
+import Home from "./components/Home";
+import { createBrowserHistory } from "history";
+import { Switch, Route, Router } from "react-router";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const routes = [
+    {
+        path: "/login",
+        component: Login,
+        name: "Login-Page"
+    },
+    {
+      path: "/register",
+      component: Register,
+      name: "Register-Page"
+    },
+    {
+      path: "/home",
+      component: Home,
+      name: "Home-Page"
+    },
+    {
+        path: "/",
+        component: App,
+        name: "Main-Page"
+    }
+]
+const root = document.getElementById("root");
+const hist = createBrowserHistory();
+ReactDOM.render(<Router history={hist}>
+        <Switch>
+            {
+                routes.map((route)=>{
+                    return(
+                        <Route path={route.path} component={route.component} key={route.name}></Route>
+                    )
+                })
+            }
+        </Switch>
+    </Router>, root);
