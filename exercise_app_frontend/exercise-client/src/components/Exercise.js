@@ -142,27 +142,26 @@ function Exercise(props) {
         }
 
     return(
-        <div>
+        <div className="container-fluid"> 
             {showModal === false ? 
             <div>
             <div>
                 <h2>Set Up Tomorrow for Success!</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="form-group">
                     <label htmlFor="day">Day</label>
-                    <input type="text" id="day" onChange={handleChange}/>
+                    <input type="text" id="day" onChange={handleChange} className="form-control"/>
                     <label htmlFor="description">Description</label>
-                    <input type="text" id="description" onChange={handleChange}/>
+                    <input type="text" id="description" onChange={handleChange} className="form-control"/>
                     <input type="submit" className="submit" />
                 </form>
             </div>
             {exercises.length && exercises.map(exercise=>{
                 return(
                     <>
-                        <h2>{exercise.day}</h2>
-                        <p>{exercise.description}</p>
-                        <button onClick={()=>handleDelete(exercise.id)}>Delete Day</button>
-                        <button onClick={()=>toggleEdit(exercise)}>Edit my Day</button>
-                        <button onClick={()=>toggleModal(exercise)}>See This Day</button>
+                        <h3>{exercise.day} : {exercise.description}</h3>
+                        <button onClick={()=>handleDelete(exercise.id)} type="button" className="btn btn-danger">Delete Day</button>
+                        <button onClick={()=>toggleEdit(exercise)} type="button" className="btn btn-warning">Edit my Day</button>
+                        <button onClick={()=>toggleModal(exercise)} type="button" className="btn btn-primary">See This Day</button>
                         {editing===true ? 
                             <div>
                                 {exercise.id === exerciseId ? 
@@ -183,29 +182,29 @@ function Exercise(props) {
         </div> : 
             <div>
                 <div>
-                        <h1>This is my day</h1>
+                        <h1>This Is My Day</h1>
                         <h2>{modalExercise.day}: {modalExercise.description}</h2>
-                        <div>{modalExercise.goals.map(goal=>{
+                        <div className="shadow p-3 mb-5 bg-white rounded">{modalExercise.goals.map(goal=>{
                             return(
                                 <div>
-                                <li>{goal.activity}: {goal.description}</li>
-                                <button onClick={()=>deleteGoal(goal.id)}>I'm not feeling this one</button>
+                                <li><h3>{goal.activity}:</h3><p> {goal.description}</p></li>
+                                <button onClick={()=>deleteGoal(goal.id)} type="button" className="btn btn-danger">I'm not feeling this one</button>
                                 </div>
                             )
                         })}
                         </div>
                         <div>
                             <h2>Add a new goal!</h2>
-                            <form onSubmit={(event)=>handleNewSubmit(event)}>
+                            <form onSubmit={(event)=>handleNewSubmit(event)} className="form-group">
                                 <label htmlFor="activity">Activity</label>
-                                <input type="text" id="newGoalActivity" onChange={handleChange}/>
+                                <input type="text" id="newGoalActivity" onChange={handleChange} className="form-control"/>
                                 <label htmlFor="description">Description</label>
-                                <input type="text" id="newGoalDescription"onChange={handleChange}/>
+                                <input type="text" id="newGoalDescription"onChange={handleChange} className="form-control"/>
                                 <input type="submit" className="submit" />
                             </form>
                         </div>
                         <div>
-                            <button onClick={toggleModal}>See All Days</button>
+                            <button onClick={toggleModal} type="button" className="btn btn-warning">See All Days</button>
                         </div>
                     </div>
             </div>

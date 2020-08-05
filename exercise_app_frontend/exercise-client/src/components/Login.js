@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Nav from './Nav';
 import Footer from './Footer';
 import Url from '../Url';
+
+
 export default class Login extends Component {
     state = {
         currentUser: {},
@@ -58,14 +60,16 @@ export default class Login extends Component {
     render() {
         if (this.state.msg === '') {
             return (
-                <div className='login'>
+                <div className='container-fluid'>
                     <Nav />
-                    <div className='login-main'>
-                        <h1 className='login-h1'>Login</h1>
-                        <form onSubmit={this.handleSubmit} className='form-group login-form'>
+                    <div className='text-center' data-gr-c-s-loaded="true">
+                    <img className="mb-4" src="https://i.imgur.com/AZWXyaj.png?2" alt width="72" height="72"></img>
+                        <h1 className='h3 mb-3 font-weight-normal'>Login</h1>
+                        <form onSubmit={this.handleSubmit} className=''>
+                        {/* <i className='far fa-dumbbell'></i>  */}
                             <label htmlFor='username'>
                                 <input
-                                    className='form-control mx-sm-3 login-input'
+                                    className='form-control mx-sm-4 login-input'
                                     placeholder='Enter Username'
                                     type='text'
                                     name='username'
@@ -76,7 +80,7 @@ export default class Login extends Component {
                             </label>
                             <label htmlFor='password'>
                                 <input
-                                    className='form-control mx-sm-3 login-input'
+                                    className='form-control mx-sm-5 login-input'
                                     placeholder='Enter password'
                                     type='password'
                                     name='password'
@@ -85,13 +89,15 @@ export default class Login extends Component {
                                     onChange={this.handleInput}
                                 />
                             </label>
-                            <button className='styled-btn login-btn' type='submit'>
+                            <div className="checkbox mb-3">
+                                    <label>
+                                    <input type="checkbox" value="remember-me"/> Remember me
+                                    </label>
+                                </div>
+                            <button type="button" className='btn btn-primary' type='submit'>
                                 Login
-                                <span className='span'></span>
-                                <span className='span'></span>
-                                <span className='span'></span>
-                                <span className='span'></span>
                             </button>
+                            <p class="mt-5 mb-3 text-muted">© 2020</p>
                         </form>
                     </div>
                     <Footer />
@@ -99,11 +105,12 @@ export default class Login extends Component {
             );
         } else {
             return (
-                <div className='login'>
+                <div className='container-fluid'>
                     <Nav />
-                    <div className='login-main'>
-                        <h2 className='incorrect-h2'>Incorrect username or password</h2>
-                        <button className='styled-btn try-again-btn' onClick={this.tryAgain}>Try again?</button>
+                    <div className="text-center">
+                        <h2 className='h3 mb-3 font-weight-normal'>Incorrect username or password</h2>
+                        <button type="button" className='btn btn-danger' onClick={this.tryAgain}>Try again?</button>
+                        <p class="mt-5 mb-3 text-muted">© 2020</p>
                     </div>
                     <Footer />
                 </div>

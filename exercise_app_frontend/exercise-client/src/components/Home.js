@@ -8,10 +8,10 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Nav/>
-        <Exercise/>
-        <Footer/>
+      <div className="container-fluid">
+        <Nav />
+        <Exercise />
+        <Footer />
       </div>
     );
   }
@@ -19,12 +19,3 @@ class Home extends Component {
 
 export default Home;
 
-
-//         <Exercise 
-//           content={this.state.exercises} 
-//           handleDelete={this.handleDelete} 
-//           toggleEdit={this.toggleEdit} 
-//           handleUpdate={this.handleUpdate} 
-//           isEditing={this.state.isEditing} 
-//           exerciseToEdit={this.state.exerciseToEdit} 
-//           handleChange={this.state.handleChange}/>

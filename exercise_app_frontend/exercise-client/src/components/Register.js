@@ -14,13 +14,6 @@ export default class Register extends Component {
         });
     };
     handleSubmit = e => {
-        // if(this.state.err === 'has already been taken'){
-        //  this.setState({
-        //      err: '',
-        //      username: '',
-        //      password: ''
-        //  })
-        // }
         e.preventDefault();
         console.log(this.state.err, 'from handle submit');
         fetch(`http://localhost:3000/users`, {
@@ -64,15 +57,16 @@ export default class Register extends Component {
         return (
             <div className='login'>
                 <Nav />
-                <div className='login-main'>
-                    <h1 className='login-h1'>Register</h1>
+                <div className='text-center' data-gr-c-s-loaded="true">
+                    <img className="mb-4" src="https://i.imgur.com/AZWXyaj.png?2" alt width="72" height="72"></img>
+                    <h1 className='h3 mb-3 font-weight-normal'>Register</h1>
                     {this.state.err !== '' ? (
                         <div>
                             <h6 className='user-taken-h6'>{`Username ${this.state.err}`}</h6>
-                            <form onSubmit={this.handleSubmit} className='form-group login-form'>
-                                <label htmlFor='username'>
+                            <form onSubmit={this.handleSubmit} className='form-signin'>
+                                <label htmlFor='username' className="sr-only">
                                     <input
-                                        className='form-control mx-sm-3 login-input'
+                                        className='form-control'
                                         placeholder='Create username'
                                         type='username'
                                         name='username'
@@ -80,9 +74,9 @@ export default class Register extends Component {
                                         onChange={this.handleInput}
                                     />
                                 </label>
-                                <label htmlFor='password'>
+                                <label htmlFor='password' className="sr-only">
                                     <input
-                                        className='form-control mx-sm-3 login-input'
+                                        className='form-control'
                                         placeholder='Create password'
                                         type='password'
                                         name='password'
@@ -90,20 +84,19 @@ export default class Register extends Component {
                                         onChange={this.handleInput}
                                     />
                                 </label>
-                                <button className='styled-btn login-btn' type='submit'>
-                                    Register
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                </button>
+                                <div className="checkbox mb-3">
+                                    <label>
+                                    <input type="checkbox" value="remember-me"> Remember me</input>
+                                    </label>
+                                </div>
+                                <button type='submit' className='btn btn-primary'>Sign Up</button>
                             </form>
                         </div>
                     ) : (
-                        <form onSubmit={this.handleSubmit} className='form-group login-form'>
+                        <form onSubmit={this.handleSubmit} className='form-signin'>
                             <label htmlFor='username'>
                                 <input
-                                    className='form-control mx-sm-3 login-input'
+                                    className='form-control mx-sm-4 login-input'
                                     placeholder='Create username'
                                     type='username'
                                     name='username'
@@ -113,7 +106,7 @@ export default class Register extends Component {
                             </label>
                             <label htmlFor='password'>
                                 <input
-                                    className='form-control mx-sm-3 login-input'
+                                    className='form-control mx-sm-5 login-input'
                                     placeholder='Create password'
                                     type='password'
                                     name='password'
@@ -121,13 +114,15 @@ export default class Register extends Component {
                                     onChange={this.handleInput}
                                 />
                             </label>
-                            <button className='styled-btn login-btn' type='submit'>
+                            <div className="checkbox mb-3">
+                                    <label>
+                                    <input type="checkbox" value="remember-me"/> Remember me
+                                    </label>
+                                </div>
+                            <button type='submit' className='btn btn-primary'>
                                 Register
-                                <span className='span'></span>
-                                <span className='span'></span>
-                                <span className='span'></span>
-                                <span className='span'></span>
                             </button>
+                            <p class="mt-5 mb-3 text-muted">© 2020</p>
                         </form>
                     )}
                 </div>

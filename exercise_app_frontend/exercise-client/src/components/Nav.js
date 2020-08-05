@@ -7,38 +7,19 @@ export default class Nav extends Component {
     render() {
         if(localStorage.token && localStorage.id) {
             return (
-                <nav className='navbar nav navbar-expand-lg navbar-dark bg-light'>
-                <Link className='navbar-brand' to='/'>
-                    <h1 className='nav-logo'>Exercise</h1>
-                </Link>
-                <button
-                    className='navbar-toggler'
-                    type='button'
-                    data-toggle='collapse'
-                    data-target='#navbarNav'
-                    aria-controls='navbarNav'
-                    aria-expanded='false'
-                    aria-label='Toggle navigation'>
-                    <span className='navbar-toggler-icon'></span>
-                </button>
-                <div className='collapse navbar-collapse' id='navbarNav'>
-                    <ul className='navbar-nav'>
+                <nav className='container-fluid' className="card-header">
+                {/* <img src="https://i.imgur.com/do73SsO.jpg" alt="exercise-image"></img> */}
+                <div className='container-fluid'>
+                    <ul className='nav justify-content-end'>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/login'>
-                                <button className='styled-btn' onClick={this.logout}>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>Logout
-                                </button>
+                            <Link className="alert-link" to='/'>
+                                <h1 className='display-6'>Swole Goals</h1>
                             </Link>
-                            <Link className='nav-link' to='/home'>
-                                <button className='styled-btn'>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>Profile
-                                </button>
+                            <Link className='nav-link active' to='/login'>
+                                <button type="button" className='btn btn-outline-warning' onClick={this.logout}></button>
+                            </Link>
+                            <Link className='nav-link active' to='/home'>
+                                <button type="button" className='btn btn-outline-warning'></button>
                             </Link>
                         </li>
                     </ul>
@@ -47,40 +28,26 @@ export default class Nav extends Component {
             )
         } else
         return (
-            <nav className='navbar nav navbar-expand-lg navbar-dark bg-light'>
-                <Link className='navbar-brand' to='/'>
-                    <h1 className='nav-logo'>Kaizen</h1>
-                </Link>
-                <button
-                    className='navbar-toggler'
-                    type='button'
-                    data-toggle='collapse'
-                    data-target='#navbarNav'
-                    aria-controls='navbarNav'
-                    aria-expanded='false'
-                    aria-label='Toggle navigation'>
-                    <span className='navbar-toggler-icon'></span>
-                </button>
-                <div className='collapse navbar-collapse' id='navbarNav'>
-                    <ul className='navbar-nav'>
+            <nav className="container-fluid" className="card-header">
+                {/* <img src="https://i.imgur.com/do73SsO.jpg" alt="exercise-image" className="card-img-top"></img> */}
+                {/* <Link className="alert-link" class="alert alert-info" to='/'>
+                    <h1 className='display-6'>Swole Goals</h1>
+                </Link> */}
+                <div className='container-fluid'>
+                    <ul className='nav justify-content-end'>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/register'>
-                                <button className='styled-btn'>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>Register
-                                </button>
+                            <Link className="alert-link" to='/'>
+                                <h1 className='display-6'>Swole Goals</h1>
                             </Link>
                         </li>
                         <li className='nav-item'>
-                            <Link className='nav-link' to='/login'>
-                                <button className='styled-btn'>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>
-                                    <span className='span'></span>Login
-                                </button>
+                            <Link className='nav-link active' to='/register'>
+                                <button type="button" className='btn btn-outline-warning'>Register</button>
+                            </Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link className='nav-link active' to='/login'>
+                                <button type="button" className='btn btn-outline-warning'>Login</button>
                             </Link>
                         </li>
                     </ul>
@@ -89,3 +56,4 @@ export default class Nav extends Component {
         );
     }
 }
+
