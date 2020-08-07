@@ -9,9 +9,9 @@ import { Switch, Route, Router } from "react-router";
 
 const routes = [
     {
-        path: "/login",
-        component: Login,
-        name: "Login-Page"
+        path: "/about",
+        component: App,
+        name: "About-Page"
     },
     {
       path: "/register",
@@ -25,7 +25,7 @@ const routes = [
     },
     {
         path: "/",
-        component: App,
+        component: Login,
         name: "Main-Page"
     }
 ]

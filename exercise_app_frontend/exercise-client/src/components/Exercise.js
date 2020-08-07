@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from 'react';
 // import Modal from './Modal.js';
 import Url from '../Url.js';
+import "./style.css"
 
 function Exercise(props) {
 
     const [exercises, setExercises] = useState([])
     const [day, setDay] = useState("")
     const [description, setDescription] = useState("")
+    const [user_id, setUserID] = useState(parseInt(localStorage.id))
+    console.log(user_id)
     const [editing, setEditing] = useState(false)
     const [exerciseToEdit, setExerciseToEdit] = useState({})
     const [exerciseId, setExerciseId] = useState("")
@@ -17,6 +20,11 @@ function Exercise(props) {
     const [goals, setGoal] = useState([])
     const [newGoalActivity, setGoalActivity] = useState("")
     const [newGoalDescription, setGoalDescription] = useState("")
+    const [toggleGoal, setToggleGoal] = useState("none")
+    const [checked, setChecked] = useState(false)
+    const state = {
+        items: []
+    }
 
     useEffect(()=>{
         fetch(`${Url}`)
@@ -39,7 +47,8 @@ function Exercise(props) {
         let form = event.currentTarget
         let data = {
             day: day,
-            description: description
+            description: description,
+            user_id: user_id
         }
         fetch(`${Url}`, {
           body: JSON.stringify(data),
@@ -107,10 +116,19 @@ function Exercise(props) {
 
         }
 
+        const updateModalExercise = () => {
+            fetch(`${Url}/${modalExercise.id}`)
+            .then((data)=>{
+                console.log(data)
+                return data.json()
+            }).then(response => setModalExercise(response))
+        }
+
         const deleteGoal = (id, index) => {
             fetch(`${Url}/${modalExercise.id}/goals/${id}`, {
                 method: 'DELETE',
             }).then(() => {
+                updateModalExercise()
                 fetch(`${Url}`)
                 .then(res => res.json())
                 .then(jsonExercises=> setExercises(jsonExercises))
@@ -136,62 +154,86 @@ function Exercise(props) {
             }).then(response => response.json())
             .then(jsonedExercise => fetch(`${Url}`)
             .then(res => res.json())
-            .then(jsonExercises=> setExercises(jsonExercises))
+            .then(jsonExercises=> {
+                updateModalExercise()
+                setExercises(jsonExercises)
+            })
             .then(form.reset())
             .catch(error => console.error(error)))
         }
 
+        let className = "none"
+        const toggleStrikeThrough = (id, e) => {
+            console.log(e.target.className)
+            // e.target.className = "line-through"
+            if(e.target.className === "none") {
+                e.target.className = "line-through"
+            } else {
+                e.target.className = "none"
+            }
+        }
+
+        
     return(
         <div className="container-fluid"> 
             {showModal === false ? 
-            <div>
-            <div>
-                <h2>Set Up Tomorrow for Success!</h2>
-                <form onSubmit={handleSubmit} className="form-group">
-                    <label htmlFor="day">Day</label>
-                    <input type="text" id="day" onChange={handleChange} className="form-control"/>
-                    <label htmlFor="description">Description</label>
-                    <input type="text" id="description" onChange={handleChange} className="form-control"/>
-                    <input type="submit" className="submit" />
-                </form>
-            </div>
-            {exercises.length && exercises.map(exercise=>{
-                return(
-                    <>
-                        <h3>{exercise.day} : {exercise.description}</h3>
-                        <button onClick={()=>handleDelete(exercise.id)} type="button" className="btn btn-danger">Delete Day</button>
-                        <button onClick={()=>toggleEdit(exercise)} type="button" className="btn btn-warning">Edit my Day</button>
-                        <button onClick={()=>toggleModal(exercise)} type="button" className="btn btn-primary">See This Day</button>
-                        {editing===true ? 
-                            <div>
-                                {exercise.id === exerciseId ? 
-                                    <div>
-                                        <h1>Edit My Day</h1>
-                                        <form onSubmit={handleEdit}>
-                                            <label htmlFor="day">Day</label>
-                                            <input type="text" id="editedDay" onChange={handleChange}/>
-                                            <label htmlFor="description">Description</label>
-                                            <input type="text" id="editedDescription"onChange={handleChange}/>
-                                            <input type="submit" className="submit" />
-                                        </form>
-                                    </div>
-                                : null} 
-                            </div> 
-                        : null}
-                </>)})}
-        </div> : 
-            <div>
                 <div>
+                    <div>
+                        <h2>Set Up Tomorrow for Success!</h2>
+                        <form onSubmit={handleSubmit} className="form-group">
+                            <label htmlFor="day">Day</label>
+                            <input type="text" id="day" onChange={handleChange} className="form-control"/>
+                            <label htmlFor="description">Description</label>
+                            <input type="text" id="description" onChange={handleChange} className="form-control"/>
+                            <input type="submit" className="submit" />
+                        </form>
+                    </div>
+                    {exercises.length && exercises.map(exercise=>{
+                        // console.log(exercise, exercise.user_id, localStorage.id)
+                        return(
+                            <>
+                                {exercise.user_id === parseInt(localStorage.id) ?
+                                <div>
+                                    <h3>{exercise.day} : {exercise.description}</h3>
+                                    <button onClick={()=>handleDelete(exercise.id)} type="button" className="btn btn-danger">Delete Day</button>
+                                    <button onClick={()=>toggleEdit(exercise)} type="button" className="btn btn-warning">Edit my Day</button>
+                                    <button onClick={()=>toggleModal(exercise)} type="button" className="btn btn-primary">See This Day</button>
+                                    {editing===true ? 
+                                        <div>
+                                            {exercise.id === exerciseId ? 
+                                                <div>
+                                                    <h1>Edit My Day</h1>
+                                                    <form onSubmit={handleEdit}>
+                                                        <label htmlFor="day">Day</label>
+                                                        <input type="text" id="editedDay" onChange={handleChange}/>
+                                                        <label htmlFor="description">Description</label>
+                                                        <input type="text" id="editedDescription"onChange={handleChange}/>
+                                                        <input type="submit" className="submit" />
+                                                    </form>
+                                                </div>
+                                            : null} 
+                                        </div> 
+                                    : null}
+                                 </div> : null}              
+                            </>)})}
+                </div> : 
+                <div>
+                    <div>
                         <h1>This Is My Day</h1>
                         <h2>{modalExercise.day}: {modalExercise.description}</h2>
-                        <div className="shadow p-3 mb-5 bg-white rounded">{modalExercise.goals.map(goal=>{
+                        <div className="shadow p-3 mb-5 bg-white rounded">{modalExercise.goals.map(goal=>{state.items.push(goal)
+                            console.log(state.items)
                             return(
-                                <div>
-                                <li><h3>{goal.activity}:</h3><p> {goal.description}</p></li>
-                                <button onClick={()=>deleteGoal(goal.id)} type="button" className="btn btn-danger">I'm not feeling this one</button>
+                                <div className="ListDiv">
+                                    <ul className="list">
+                                        <li className={className} id={`${goal.id}`} style={{textDecoration:'none'}} onClick={(e)=>toggleStrikeThrough(goal.id, e)}>
+                                            <h3 className="h3Goal">{goal.activity}:</h3><p> {goal.description}</p>
+                                        </li>
+                                    </ul>
+                                    <button onClick={()=>deleteGoal(goal.id)} type="button" className="btn btn-danger">I'm not feeling this one</button>
                                 </div>
                             )
-                        })}
+                            })}
                         </div>
                         <div>
                             <h2>Add a new goal!</h2>
@@ -207,8 +249,8 @@ function Exercise(props) {
                             <button onClick={toggleModal} type="button" className="btn btn-warning">See All Days</button>
                         </div>
                     </div>
-            </div>
-    }</div>
+                </div>
+        }</div>
     )
 }
 
