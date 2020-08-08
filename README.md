@@ -8,9 +8,10 @@ SwoleGoals is a full-CRUD application designed to help task-oriented users achie
 1. Ruby on Rails
 2. React
 3. SQL and PostgreSQL
-4. JSX 
-5. Bootstrap and CSS
-6. HTML
+4. JSX
+5. Node.js
+6. Bootstrap and CSS
+7. HTML
 
 ### Step 4 - Deploy with Heroku 
 Link: https://orderly-project.herokuapp.com/
